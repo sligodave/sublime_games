@@ -1,0 +1,5 @@
+[
+    { "caption": "Games: In A Row 4", "command": "in_aRow_start" },
+    { "caption": "Games: In A Row Prompt", "command": "in_aRow_prompt" },
+    { "caption": "Games: Tic Tac Toe", "command": "tic_tac_toe_start" }
+]
