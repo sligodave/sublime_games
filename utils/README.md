@@ -12,6 +12,6 @@ https://github.com/sligodave/sublime_utils
 Send on any suggestions or issues.
 
 ## Copyright and license
-Copyright 2013 David Higgins
+Copyright 2014 David Higgins
 
 [MIT License](LICENSE)
