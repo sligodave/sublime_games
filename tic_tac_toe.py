@@ -7,12 +7,12 @@ SUBLIME_MAJOR = int(sublime.version()[0])
 
 if SUBLIME_MAJOR == 3:
     from .base import Game
-    from .utils.touch import LiveEventListener, add_event_handler, remove_event_handlers
-    from .utils.commands import UtilsEditViewCommand
+    from .touch import LiveEventListener, add_event_handler, remove_event_handlers
+    from .utils import UtilsEditViewCommand
 elif SUBLIME_MAJOR == 2:
     from base import Game
-    from utils.touch import LiveEventListener, add_event_handler, remove_event_handlers
-    from utils.commands import UtilsEditViewCommand
+    from touch import LiveEventListener, add_event_handler, remove_event_handlers
+    from utils import UtilsEditViewCommand
 else:
     raise Exception('We only support sublime 2 or 3')
 
@@ -65,7 +65,8 @@ class TicTacToeGame(Game):
             add_event_handler(self.view, region, lambda w, x, y, z: self.zoom(+10, True), None)
 
         self.view.run_command(
-                        'utils_edit_view', {'data': data, 'start': 0, 'end': self.view.size()})
+            'utils_edit_view', {'data': data, 'start': 0, 'end': self.view.size()}
+        )
 
         if self.game_over:
             region = sublime.Region(0, self.view.size())
@@ -110,15 +111,17 @@ class TicTacToeGame(Game):
                         break
                     if cell.value != self.whos_move:
                         break
-        return STATUS_DRAW if saw_white == False else STATUS_PLAYING
+        return STATUS_DRAW if saw_white is False else STATUS_PLAYING
 
     def get_next_cell(self, cell, direction):
         cell_index = {
             'down': lambda cell: cell.index + 3 if cell.index <= 5 else None,
             'left': lambda cell: cell.index - 1 if cell.index % 3 else None,
             'right': lambda cell: cell.index + 1 if cell.index % 3 < 2 else None,
-            'down_left': lambda cell: cell.index + 2 if self.get_next_cell(cell, 'down') and self.get_next_cell(cell, 'left') else None,
-            'down_right': lambda cell: cell.index + 4 if self.get_next_cell(cell, 'down') and self.get_next_cell(cell, 'right') else None,
+            'down_left': lambda cell: cell.index + 2 if self.get_next_cell(cell, 'down') and
+            self.get_next_cell(cell, 'left') else None,
+            'down_right': lambda cell: cell.index + 4 if self.get_next_cell(cell, 'down') and
+            self.get_next_cell(cell, 'right') else None,
         }[direction](cell)
         if cell_index is not None:
             return self.cells[cell_index]
@@ -136,11 +139,11 @@ class TicTacToeStartCommand(sublime_plugin.WindowCommand):
     def run(self, view_id=None):
         window = sublime.active_window()
         view = None
-        if not view_id == None:
+        if view_id is not None:
             views = [x for x in window.views() if x.id() == view_id]
             if views:
                 view = views[0]
-        if view == None:
+        if view is None:
             view = window.new_file()
 
         if view.id() in TIC_TAC_TOE_INSTANCES:

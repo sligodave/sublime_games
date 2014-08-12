@@ -1,7 +1,9 @@
 sublime_games
 =============
 
-A set of simple games for sublime text 2 &amp; 3
+A set of simple games for sublime text 2 &amp; 3.
+
+The games are clickable and make use of the sublime text framework [sublime_touch](https://github.com/sligodave/sublime_touch), as well as the sublime text plugin utils package [sublime_utils](https://github.com/sligodave/sublime_utils)
 
 ## Installation:
 

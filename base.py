@@ -42,7 +42,7 @@ class Game(object):
 
     def configure_view(self, **kwargs):
         for name, value in self.settings.items():
-            if not name in kwargs:
+            if name not in kwargs:
                 kwargs[name] = value
         self.clear_selection()
         if 'scratch' in kwargs:
@@ -71,7 +71,8 @@ class Game(object):
         colors_xml = ''
         if isinstance(colors, list):
             defaults = {
-                'name': '', 'scope': '', 'caret': '', 'background': '', 'foreground': '', 'fontStyle': ''
+                'name': '', 'scope': '', 'caret': '',
+                'background': '', 'foreground': '', 'fontStyle': ''
             }
             color_xml = '''<dict><key>name</key><string>{name}</string><key>scope</key>
 <string>{scope}</string><key>settings</key><dict><key>background</key><string>{background}</string>
@@ -102,7 +103,8 @@ class Game(object):
             uuid = u.uuid4()
         colors_xml = self.generate_colors_xml(colors)
         return '''<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plistPUBLIC '-//Apple Computer//DTD PLIST 1.0//EN''http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
+<!DOCTYPE plistPUBLIC
+'-//Apple Computer//DTD PLIST 1.0//EN''http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
 <plist version="1.0"><dict><key>name</key><string>Color Scheme</string><key>settings</key><array>
 <dict><key>settings</key><dict><key>background</key><string>{background}</string><key>caret</key>
 <string>{caret}</string><key>foreground</key><string>{foreground}</string><key>fontStyle</key>
